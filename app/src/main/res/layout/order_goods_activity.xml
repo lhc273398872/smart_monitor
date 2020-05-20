@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+    <RelativeLayout style="@style/topbar_bg" >
+
+        <ImageButton style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="订单详细信息" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llOrderBusinessCardContainer"
+        style="@style/ll_vertical_match_wrap"
+        android:layout_marginBottom="@dimen/padding_huge"
+        android:layout_marginTop="@dimen/padding_huge"/>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <FrameLayout
+        android:id="@+id/flOrderGoodsFragmentContainer"
+        style="@style/match_match"
+        android:layout_weight="1" >
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ListView中的ItemView里不要用Button等默认hasFocus的控件，以免onItemClick事件无响应 -->
+<!-- 如果一定要用，则必须在根布局加上 android:descendantFocusability="blocksDescendants" -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ll_vertical_match_wrap"
+    android:background="@color/indicator_enter"
+    android:padding="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            style="@style/content_item"
+            android:id="@+id/llHouse"
+            android:background="@drawable/round_white">
+
+            <ImageView
+                style="@style/content_item_lf_img"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="6dp"
+                android:src="@drawable/ic_home_blue_24dp"/>
+
+            <TextView
+                android:id="@+id/tvHouseViewName"
+                style="@style/content_item_lf_tv"
+                android:text="item" />
+
+            <TextView
+                android:id="@+id/tvHouseViewNumber"
+                style="@style/content_item_rt_tv"
+                android:layout_weight="1"
+                android:paddingRight="6dp"
+                android:text="right text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <FrameLayout
+                android:id="@+id/lvItemFragment"
+                style="@style/match_wrap"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

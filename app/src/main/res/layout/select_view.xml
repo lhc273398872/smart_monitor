@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ListView中的ItemView里不要用Button等默认hasFocus的控件，以免onItemClick事件无响应 -->
+<!-- 如果一定要用，则必须在根布局加上 android:descendantFocusability="blocksDescendants" -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ll_horizontal_match_wrap"
+    android:background="@drawable/white_to_alpha"
+    android:padding="4dp" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/ivGoodsViewHead"
+        style="@style/img_fitXY"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/oval_alpha" />
+
+    <LinearLayout
+        style="@style/ll_vertical_match_wrap"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="4dp" >
+
+        <LinearLayout style="@style/ll_horizontal_match_wrap" >
+
+            <LinearLayout
+                style="@style/ll_horizontal_match_wrap"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/tvGoodsViewName"
+                    style="@style/text_middle_black"
+                    android:layout_marginRight="6dp"
+                    android:gravity="left"
+                    android:text="Name" />
+
+                <TextView
+                    android:id="@+id/tvGoodsView"
+                    style="@style/text_micro"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/circle_blue"
+                    android:text="冷"
+                    android:textColor="@color/blue_sky" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivGoodsViewStar"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:src="@drawable/star_light" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ll_horizontal_match_wrap"
+            android:layout_weight="1" >
+
+            <TextView
+                style="@style/text_middle"
+                android:text="ID:" />
+
+            <TextView
+                android:id="@+id/tvGoodsViewId"
+                style="@style/text_middle"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ll_horizontal_match_wrap"
+            android:layout_weight="1" >
+
+            <TextView
+                style="@style/text_middle"
+                android:text="目前数量：" />
+
+            <TextView
+                android:id="@+id/tvGoodsViewNumber"
+                style="@style/text_middle"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ll_horizontal_match_wrap"
+            android:layout_weight="1" >
+
+            <TextView
+                style="@style/text_middle"
+                android:text="单重：" />
+
+            <TextView
+                android:id="@+id/tvGoodsViewWeight"
+                style="@style/text_middle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ll_horizontal_match_wrap"
+            android:layout_weight="1" >
+
+            <TextView
+                style="@style/text_middle"
+                android:text="选择数量：" />
+
+            <TextView
+                android:id="@+id/tvGoodsGetNumber"
+                android:layout_width="match_parent"
+                android:text="点击选择数量"
+                style="@style/text_middle"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

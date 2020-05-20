@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Smart_monitor</string>
+    <string name="saveHouse">仓库</string>
+    <string name="order">订单详情</string>
+    <string name="driverList">司机目录</string>
+    <string name="setting">设置</string>
+</resources>

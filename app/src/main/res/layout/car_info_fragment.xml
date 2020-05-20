@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page"
+    android:orientation="vertical"
+    android:background="@color/indicator_enter">
+
+    <LinearLayout
+        android:id="@+id/llCar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ll_horizontal_match_wrap"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/ivCarViewHead"
+            style="@style/img_fitXY"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/oval_alpha" />
+
+        <LinearLayout
+            style="@style/ll_vertical_match_wrap"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="4dp" >
+
+            <LinearLayout style="@style/ll_horizontal_match_wrap" >
+
+                <LinearLayout
+                    style="@style/ll_horizontal_match_wrap"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@id/tvCarType"
+                        style="@style/text_middle_black"
+                        android:layout_marginRight="6dp"
+                        android:gravity="left"
+                        android:text="车辆型号" />
+
+                    <TextView
+                        style="@style/text_micro"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:background="@drawable/circle_blue"
+                        android:text="冷"
+                        android:textColor="@color/blue_sky" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
+                    android:src="@drawable/star_light" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ll_horizontal_match_wrap"
+                android:layout_weight="1" >
+
+                <TextView
+                    style="@style/text_middle"
+                    android:text="ID:" />
+
+                <TextView
+                    android:id="@+id/tvCarViewId"
+                    style="@style/text_middle"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ll_horizontal_match_wrap"
+                android:layout_weight="1" >
+
+                <TextView
+                    style="@style/text_middle"
+                    android:text="温度：" />
+
+                <TextView
+                    android:id="@id/tvCarTem"
+                    style="@style/text_middle"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ll_horizontal_match_wrap"
+                android:layout_weight="1" >
+
+                <TextView
+                    style="@style/text_middle"
+                    android:text="车辆载重：" />
+
+                <TextView
+                    android:id="@id/tvCarWeight"
+                    style="@style/text_middle"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="4dp"
+        style="@style/content_item"
+        android:id="@+id/llDesitination"
+        android:background="@drawable/round_white">
+
+        <ImageView
+            style="@style/content_item_lf_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="6dp"
+            android:src="@drawable/ic_car_black_24dp"/>
+
+        <TextView
+            style="@style/content_item_lf_tv"
+            android:text="目前位置：" />
+
+        <TextView
+            android:id="@+id/tvCarLocation"
+            style="@style/content_item_rt_tv"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:paddingRight="6dp"
+            android:text="right text" />
+
+    </LinearLayout>
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/carMapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:clickable="true" />
+
+</LinearLayout>

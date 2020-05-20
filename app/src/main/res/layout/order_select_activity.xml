@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BaseListXXX的子类布局layout中，AbsListView必须有，且它的id必须按以下写法。padding会导致smoothScrollToPosition失效 -->
+<androidx.drawerlayout.widget.DrawerLayout
+    android:id="@+id/drawerLayout"
+    style="@style/activity_page"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        style="@style/activity_page"
+        android:background="@color/indicator_enter">
+
+        <RelativeLayout style="@style/topbar_bg" >
+
+            <ImageButton
+                android:id="@+id/ibtnReturnBack"
+                style="@style/topbar_return_img" />
+
+            <TextView
+                style="@style/topbar_title"
+                android:id="@+id/currentHouseName"
+                android:layout_centerHorizontal="true"
+                android:text="订单后备箱" />
+
+            <ImageButton
+                android:id="@+id/ibtnSendOrder"
+                style="@style/topbar_right_img"
+                android:src="@drawable/send_light"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/content_item"
+                android:id="@+id/llDesitination"
+                android:background="@drawable/round_white">
+
+                <ImageView
+                    style="@style/content_item_lf_img"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/ic_home_blue_24dp"/>
+
+                <TextView
+                    android:id="@+id/tvOrderDestinationName"
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:layout_marginRight="30dp"
+                    android:text="点击选择目的地" />
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/llOrderDriver"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp">
+                    <FrameLayout
+                        android:id="@+id/lvOrderItemFragment"
+                        style="@style/match_wrap"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llOrderDriver"
+                    style="@style/content_item"
+                    android:padding="4dp"
+                    android:background="@drawable/round_white"
+                    android:layout_alignParentBottom="true"
+                    >
+
+                    <ImageView
+                        android:id="@+id/ivOrderDriverHead"
+                        style="@style/content_item_lf_img"
+                        android:layout_height="30dp"
+                        android:background="@color/alpha_1"
+                        android:layout_marginRight="6dp"
+                        android:layout_width="30dp"/>
+
+                    <TextView
+                        android:id="@+id/tvOrderDriverName"
+                        style="@style/content_item_lf_tv"
+                        android:layout_weight="1"
+                        android:text="点击后，长按选择司机" />
+
+                    <TextView
+                        android:id="@+id/tvOrderDriverTel"
+                        style="@style/content_item_rt_tv"
+                        android:text="手机号" />
+
+                    <ImageView style="@style/content_item_rt_img" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/tvSelectDriverList"
+                android:paddingTop="45dp"
+                android:paddingBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/topbar_bg"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="空闲司机" />
+            <FrameLayout
+                android:id="@+id/flFragmentContainer"
+                style="@style/match_match"
+                android:longClickable="true"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </LinearLayout>
+
+    </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>
+

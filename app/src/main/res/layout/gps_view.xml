@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rlGpsTopInfo"
+        style="@style/topbar_bg"
+        android:visibility="gone">
+
+        <ImageButton style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="gps定位" />
+
+        <TextView
+            android:id="@+id/tvTabRight"
+            style="@style/topbar_right_btn"
+            android:text="确认"
+            android:visibility="visible"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/edit_item"
+        android:id="@+id/llGpsLocation"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/edit_item_left_tv"
+            android:text="地理位置" />
+
+        <EditText
+            android:id="@+id/etGpsAddress"
+            style="@style/edit_item_right_et"
+            android:layout_weight="1"
+            android:maxLength="90"
+            android:hint="点击下图的gps地图来获取位置"
+            android:importantForAutofill="no" />
+
+    </LinearLayout>
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:clickable="true" />
+
+</LinearLayout>
