@@ -12,10 +12,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentTransaction;
+
 import com.alibaba.fastjson.JSONObject;
 import com.example.smart_monitor.R;
 import com.example.smart_monitor.activity.GpsActivity;
 import com.example.smart_monitor.fragment.HouseTabFragment;
+import com.example.smart_monitor.fragment.TemListFragment;
 import com.example.smart_monitor.model.Car;
 import com.example.smart_monitor.model.CarGps;
 import com.example.smart_monitor.model.SaveHouse;
@@ -135,11 +138,25 @@ public class CarInfoActivity extends BaseActivity
             old_car = (Car) ItemUtil.cloneObjBySerialization(car);
         }
         runUiThread(new Runnable() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void run() {
                 tvCarType.setText(StringUtil.getTrimedString(car.getCar_type()));
                 tvCarWeight.setText(StringUtil.getTrimedString(car.getCar_weight()));
-                tvCarTem.setText(StringUtil.getTrimedString(car.getCar_tem()));
+//                tvCarTem.setText(StringUtil.getTrimedString(car.getCar_tem()));
+                switch (car.getCar_tem()){
+                    case 0:
+                        tvCarTem.setText("温度适宜");
+                        tvCarTem.setTextColor(R.color.green);
+                        break;
+                    case 1:
+                        tvCarTem.setText("温度过高");
+                        tvCarTem.setTextColor(R.color.red);
+                        break;
+                    case -1:
+                        tvCarTem.setText("温度过低");
+                        tvCarTem.setTextColor(R.color.blue_sky);
+                }
             }
         });
     }
@@ -165,9 +182,15 @@ public class CarInfoActivity extends BaseActivity
     //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-
+    private FragmentTransaction ft;
+    private TemListFragment temListFragment;
     @Override
     public void initData() {//必须调用
+
+        ft = fragmentManager.beginTransaction();
+        temListFragment = TemListFragment.createInstance(driver_id);
+        ft.add(R.id.lvTemFragment, temListFragment);
+        ft.commitNow();
 
         old_car = null;
         if (car_id == 0){
@@ -178,11 +201,16 @@ public class CarInfoActivity extends BaseActivity
             runThread(TAG + "initData", new Runnable() {
                 @Override
                 public void run() {
-                    //TODO * 网址修改
-                    HttpRequest.getInfo(driver_id, "querySimpleHouse.do", GETCAR, CarInfoActivity.this);
+                    HttpRequest.getInfo(driver_id, "queryDriverCar.do", GETCAR, CarInfoActivity.this);
                 }
             });
         }
+    }
+
+    protected void setResult(){
+        intent = new Intent()
+                .putExtra(RESULT_DATA, "" + car.getCar_id());
+        setResult(RESULT_OK, intent);
     }
 
     //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)
@@ -230,6 +258,7 @@ public class CarInfoActivity extends BaseActivity
                         break;
                     default:
                         showShortToast("添加车辆信息成功");
+                        setResult();
                         finish();
                         break;
                 }
@@ -243,6 +272,7 @@ public class CarInfoActivity extends BaseActivity
                         break;
                     default:
                         showShortToast("修改车辆信息成功");
+                        setResult();
                         finish();
                         break;
                 }
@@ -259,7 +289,7 @@ public class CarInfoActivity extends BaseActivity
                 }
 
                 if ((car == null || car.getCar_id() < 0)) {
-                    showShortToast(R.string.get_failed);
+                    showShortToast("网络出现问题或并未存在车辆");
                 } else {
                     setCar(car);
                 }
@@ -308,7 +338,7 @@ public class CarInfoActivity extends BaseActivity
         @Override
         public void onClick(View v) {
             //TODO * 完成添加车辆
-            HttpRequest.updateInfo(car, "insertSimpleHouse.do", ADDCAR, CarInfoActivity.this);
+            HttpRequest.updateInfo(car, "insertSimpleCars.do", ADDCAR, CarInfoActivity.this);
         }
     }
 
@@ -317,7 +347,7 @@ public class CarInfoActivity extends BaseActivity
         @Override
         public void onClick(View v) {
             //TODO * 修改车辆信息
-            HttpRequest.updateInfo(car, "updateSimpleHouse.do", UPDATECAR, CarInfoActivity.this);
+            HttpRequest.updateInfo(car, "updateSimpleCars.do", UPDATECAR, CarInfoActivity.this);
         }
     }
 

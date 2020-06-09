@@ -90,17 +90,22 @@ public class OrderTabFragment extends BaseTabFragment
 
     @Override
     protected String[] getTabNames() {
-        return new String[] {"列表模式", "gps模式"};
+        return new String[] {"列表模式", "订单到达", "历史订单", "gps模式"};
     }
 
     @Override
     protected Fragment getFragment(int position) {
 
         switch (position){
+            //TODO
             case 1:
+                return OrderListFragment.createInstance(admin_id);
+            case 2:
+                return OrderListFragment.createInstance(admin_id, 2);
+            case 3:
                 return DriverGpsFragment.createInstance(admin_id);
             default:
-                return OrderListFragment.createInstance(admin_id);
+                return OrderListFragment.createInstance(admin_id, 0);
         }
     }
 

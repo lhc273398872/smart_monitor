@@ -69,7 +69,6 @@ public class GpsActivity extends BaseActivity
 
     //启动方法>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +79,6 @@ public class GpsActivity extends BaseActivity
         initData();
         initEvent();
         //功能归类分区方法，必须调用>>>>>>>>>>
-
     }
 
 
@@ -95,6 +93,7 @@ public class GpsActivity extends BaseActivity
     //地图控件
     private MapView mMapView = null;
     private Bitmap bitmap;
+
     @Override
     public void initView() {
 
@@ -289,6 +288,7 @@ public class GpsActivity extends BaseActivity
     public void onHttpResponse(int requestCode, String resultJson, Exception e) {
         if (e != null){
             e.printStackTrace();
+            showShortToast(R.string.get_failed);
             return;
         }
 

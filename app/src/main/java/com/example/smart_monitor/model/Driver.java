@@ -15,6 +15,8 @@ public class Driver implements Serializable{
     private String driver_location;
     private String driver_longitude;
     private String driver_latitude;
+    private long over_order;
+    private long wrong_ops;
 
 //    private int state; //用户类型 0：公司管理员 1：司机
 //    private int sex; //性别
@@ -85,6 +87,22 @@ public class Driver implements Serializable{
 
     public void setDriver_location(String driver_location) {
         this.driver_location = driver_location;
+    }
+
+    public long getOver_order() {
+        return over_order;
+    }
+
+    public void setOver_order(long over_order) {
+        this.over_order = over_order;
+    }
+
+    public long getWrong_ops() {
+        return wrong_ops;
+    }
+
+    public void setWrong_ops(long wrong_ops) {
+        this.wrong_ops = wrong_ops;
     }
 
 //    public int getSex() {

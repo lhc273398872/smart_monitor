@@ -1,7 +1,6 @@
 package com.example.smart_monitor.driver.driver_activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -16,18 +15,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.smart_monitor.R;
-import com.example.smart_monitor.activity.AdminTabActivity;
 import com.example.smart_monitor.activity.LoginActivity;
 import com.example.smart_monitor.driver.driver_fragment.AdminListFragment;
-import com.example.smart_monitor.driver.driver_fragment.CarItemListFragment;
 import com.example.smart_monitor.driver.driver_fragment.CarTabFragment;
 import com.example.smart_monitor.driver.driver_fragment.DriverOrderTabFragment;
 import com.example.smart_monitor.driver.driver_service.DriverGpsService;
+import com.example.smart_monitor.driver.driver_service.DriverTemService;
+import com.example.smart_monitor.driver.driver_service.OrderService;
 import com.example.smart_monitor.fragment.DriverTabFragment;
 import com.example.smart_monitor.fragment.HouseTabFragment;
 import com.example.smart_monitor.fragment.OrderTabFragment;
 import com.example.smart_monitor.fragment.SettingFragment;
-import com.example.smart_monitor.service.DriverService;
+import com.example.smart_monitor.service.WrongService;
 
 import zuo.biao.library.base.BaseBottomTabActivity;
 import zuo.biao.library.interfaces.OnBottomDragListener;
@@ -88,8 +87,6 @@ public class DriverTabActivity extends BaseBottomTabActivity
     //导入demoTabFragment
     private ViewGroup topRightButton;
     private TextView[] bottomText;
-
-    private ImageView small_add;
     private ImageView switch_gps;
     private ImageView small_refresh;
     private OrderTabFragment orderTabFragment;
@@ -102,11 +99,6 @@ public class DriverTabActivity extends BaseBottomTabActivity
         topRightButton = findView(R.id.llBaseTabTopRightButtonContainer);
         bottomText = new TextView[TAB_NAMES.length];
 
-        //设置添加按钮图像
-        small_add = new ImageView(this);
-        small_add.setImageResource(R.drawable.add_small);
-        small_add.setOnClickListener(new DriverTabActivity.AddOnclick());
-
         small_refresh = new ImageView(this);
         small_refresh.setImageResource(R.drawable.ic_autorenew_black_24dp);
         small_refresh.setOnClickListener(new DriverTabActivity.RefreshOnclick());
@@ -117,6 +109,8 @@ public class DriverTabActivity extends BaseBottomTabActivity
         }
 
         startGpsUpdataService();
+//        startOrderService();
+        startTemUpdataService();
         carTabFragment = CarTabFragment.createInstance(driver_id);
         carTabFragment.driverTabActivity = this;
 
@@ -144,7 +138,7 @@ public class DriverTabActivity extends BaseBottomTabActivity
 
     @Override
     protected Fragment getFragment(int position) {
-        //TODO * 在车辆货物详情加上温度显示
+        //在车辆货物详情加上温度显示
         /*
          * 0：车辆详情（包括订单列表显示） CarItemListFragment
          * 1：订单通知 OrderNoticeFragment()
@@ -157,7 +151,7 @@ public class DriverTabActivity extends BaseBottomTabActivity
             case 2:
                 return AdminListFragment.createInstance(driver_id);
             case 3:
-                return SettingFragment.createInstance(getActivity());
+                return SettingFragment.createInstance(getActivity(), driver_id, false);
             default:
                 return carTabFragment;
         }
@@ -173,11 +167,10 @@ public class DriverTabActivity extends BaseBottomTabActivity
 
 
         topRightButton.removeAllViews();
-        //0为货物添加
+
         switch (position){
             case 0:
                 topRightButton.addView(small_refresh);
-                topRightButton.addView(small_add);
                 break;
         }
 
@@ -248,38 +241,17 @@ public class DriverTabActivity extends BaseBottomTabActivity
         return super.onKeyUp(keyCode, event);
     }
 
-    //添加事件按钮捕获
-    private class AddOnclick implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            showShortToast("开启服务");
-            Log.d("DriverTabActivity", "开启服务");
-            Intent intent = new Intent(DriverTabActivity.this, DriverService.class);
-            intent.putExtra("driver_id", driver_id);
-            intent.setAction("android.intent.action.RESPOND_VIA_MESSAGE");
-            startService(intent);
-//            switch (currentPosition){
-//                case 0:
-//                    houseTabFragment.runTopMenu();
-//                    break;
-//                case 2:
-//                    //TODO 添加司机
-//                    showShortToast("添加司机");
-//                    break;
-//            }
-        }
-    }
-
     private class RefreshOnclick implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
             switch (currentPosition) {
                 case 0:
-                    showShortToast("停止服务");
-                    Log.d("DriverTabActivity", "停止服务");
-                    DriverService.runThread = false;
-                    stopService(new Intent(DriverTabActivity.this, DriverService.class));
+                    carTabFragment.refreshCarInfo();
+//                    showShortToast("停止服务");
+//                    Log.d("DriverTabActivity", "停止服务");
+//                    WrongService.runThread = false;
+//                    stopService(new Intent(DriverTabActivity.this, WrongService.class));
                     //调用houseTabFragment中的refresh方法
 //                    houseTabFragment.getHouseList();
 //                    break;
@@ -298,6 +270,23 @@ public class DriverTabActivity extends BaseBottomTabActivity
         }
     }
 
+    Intent temUpdataService;
+    public void startTemUpdataService(){
+        if (temUpdataService == null){
+            temUpdataService = new Intent(DriverTabActivity.this, DriverTemService.class);
+            temUpdataService.putExtra("driver_id", driver_id);
+            temUpdataService.setAction("android.intent.action.RESPOND_VIA_MESSAGE");
+        }
+        startService(temUpdataService);
+    }
+
+    public void stopTemUpdataService(){
+        if (temUpdataService != null){
+            stopService(temUpdataService);
+            temUpdataService = null;
+        }
+    }
+
     Intent gpsUpdataService;
     public void startGpsUpdataService(){
         if (gpsUpdataService == null){
@@ -312,6 +301,23 @@ public class DriverTabActivity extends BaseBottomTabActivity
         if (gpsUpdataService != null){
             stopService(gpsUpdataService);
             gpsUpdataService = null;
+        }
+    }
+
+    Intent orderService;
+    public void startOrderService(){
+        if (orderService == null){
+            orderService = new Intent(DriverTabActivity.this, OrderService.class);
+            orderService.putExtra("driver_id", driver_id);
+            orderService.setAction("android.intent.action.RESPOND_VIA_MESSAGE");
+        }
+        startService(orderService);
+    }
+
+    public void stopOrderService(){
+        if (orderService != null){
+            stopService(orderService);
+            orderService = null;
         }
     }
 

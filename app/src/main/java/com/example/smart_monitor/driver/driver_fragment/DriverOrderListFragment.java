@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 
+import com.example.smart_monitor.R;
 import com.example.smart_monitor.driver.driver_adapter.DriverOrderAdapter;
 import com.example.smart_monitor.model.Order;
 import com.example.smart_monitor.util.HttpRequest;
@@ -20,6 +21,7 @@ import java.util.List;
 import zuo.biao.library.base.BaseHttpListFragment;
 import zuo.biao.library.interfaces.AdapterCallBack;
 import zuo.biao.library.interfaces.CacheCallBack;
+import zuo.biao.library.interfaces.OnHttpResponseListener;
 import zuo.biao.library.manager.CacheManager;
 import zuo.biao.library.util.JSON;
 import zuo.biao.library.util.Log;
@@ -164,7 +166,7 @@ public class DriverOrderListFragment extends BaseHttpListFragment<Order, ListVie
     @Override
     public int getCacheCount() {
         //TODO 需要设置为获取数据库中仓库物品总量
-        return 10;
+        return 100;
     }
 
     //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

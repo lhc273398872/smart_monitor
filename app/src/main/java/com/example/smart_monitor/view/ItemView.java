@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import zuo.biao.library.base.BaseView;
+import zuo.biao.library.ui.BottomMenuWindow;
 import zuo.biao.library.ui.EditTextInfoWindow;
 import zuo.biao.library.util.StringUtil;
 
@@ -51,14 +52,16 @@ public class ItemView extends BaseView<Goods>
     private static Map<Long, Boolean> selectMap = new HashMap<>();
     private long goods_id = -1;
     private int ALTER_GOODS_NUMBER = 1;
+    private int DELETE_GOODS = 2;
 //    public boolean selected = false;
 
     public ItemView(Activity context, ViewGroup parent, boolean checkBoxFlag) {
-        super(context, R.layout.item_view, parent);  //TODO demo_view改为你所需要的layout文件
+        super(context, R.layout.item_view, parent);
         this.checkBoxFlag = checkBoxFlag;
     }
 
     private ImageView ivGoodsViewHead;
+
     private TextView tvGoodsViewId;
     private TextView tvGoodsViewName;
     private TextView tvGoodsViewNumber;
@@ -66,8 +69,10 @@ public class ItemView extends BaseView<Goods>
 
     private LinearLayout llOrderGoodsNumber;
     private LinearLayout llCheckBox;
+    private LinearLayout llItem;
 
     public CheckBox cbItem;
+
 
     @Override
     public View createView() {
@@ -83,6 +88,7 @@ public class ItemView extends BaseView<Goods>
             llOrderGoodsNumber.setVisibility(View.GONE);
         }
 
+        llItem = findView(R.id.llItem);
         tvGoodsGetNumber = findView(R.id.tvGoodsGetNumber);
         ivGoodsViewHead = findView(R.id.ivGoodsViewHead, this);
         tvGoodsViewId = findView(R.id.tvGoodsViewId);
@@ -160,6 +166,7 @@ public class ItemView extends BaseView<Goods>
         });
 //        cbItem.setOnCheckedChangeListener(null);
 
+
         return super.createView();
     }
 
@@ -170,7 +177,7 @@ public class ItemView extends BaseView<Goods>
         super.bindView(data_ != null ? data_ : new Goods());
         goods_id = data.getGoods_id();
         itemView.setBackgroundResource(selected ? R.drawable.alpha3 : R.drawable.white_to_alpha);
-        //TODO 附加注释
+
         tvGoodsViewId.setText(StringUtil.getTrimedString(data.getGoods_id()));
         tvGoodsViewName.setText(StringUtil.getTrimedString(data.getGoods_name()));
         tvGoodsViewNumber.setText(StringUtil.getTrimedString(data.getGoods_number()));
@@ -194,7 +201,7 @@ public class ItemView extends BaseView<Goods>
         switch (v.getId()) {
             //图片按键反应
             case R.id.ivGoodsViewHead:
-                //TODO 附加注释
+
 //                data.setKey("New " + data.getKey());
                 bindView(data);
                 if (onDataChangedListener != null) {

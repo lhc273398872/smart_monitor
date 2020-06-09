@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -26,9 +27,11 @@ import com.baidu.location.LocationClient;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
@@ -36,12 +39,16 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 import com.example.smart_monitor.R;
+import com.example.smart_monitor.activity.DriverActivity;
+import com.example.smart_monitor.activity.OrderGoodsActivity;
+import com.example.smart_monitor.driver.driver_service.DriverGpsService;
 import com.example.smart_monitor.util.HttpRequest;
 
 import zuo.biao.library.base.BaseFragment;
 import zuo.biao.library.interfaces.OnHttpResponseListener;
 import zuo.biao.library.model.Entry;
 import zuo.biao.library.util.Log;
+import zuo.biao.library.util.StringUtil;
 
 public class DriverGpsFragment extends BaseFragment implements OnHttpResponseListener {
 
@@ -63,6 +70,9 @@ public class DriverGpsFragment extends BaseFragment implements OnHttpResponseLis
     //与Activity通信>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     private long admin_id = -1;
+
+    private boolean isLoading = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -165,15 +175,60 @@ public class DriverGpsFragment extends BaseFragment implements OnHttpResponseLis
     private LocationClient mLocationClient;
     private MyLocationConfiguration myLocationConfiguration;
     final List<LatLng> points = new ArrayList<>();
-
+    private GetGpsThread getGpsThread;
     @Override
     public void initData() {//必须在onCreateView方法内调用
 
-        getDriverGpsList();
+        getGpsThread = new GetGpsThread();
+        getGpsThread.start();
         //设置百度地图sdk格式
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
         mBaiduMap.setMyLocationEnabled(true);
+
+        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(final Marker marker) {
+                android.util.Log.d(TAG, "onMarkerClick: " + marker.getExtraInfo().getString("driver_name"));
+
+                Button button = new Button(getContext().getApplicationContext());
+                button.setText(marker.getExtraInfo().getString("driver_name"));
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        long admin_id = Long.parseLong(marker.getExtraInfo().getString("admin_id"));
+                        long order_id = Long.parseLong(marker.getExtraInfo().getString("order_id"));
+                        toActivity(OrderGoodsActivity.createIntent(context, order_id, admin_id, true));
+                    }
+                });
+
+                InfoWindow mInfoWindow = new InfoWindow(button, marker.getPosition(), -100);
+                mBaiduMap.showInfoWindow(mInfoWindow);
+
+                return true;
+            }
+        });
+
+        mBaiduMap.setOnMapRenderCallbadk(new BaiduMap.OnMapRenderCallback() {
+            @Override
+            public void onMapRenderFinished() {
+                isLoading = true;
+
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                for (LatLng p : points){
+                    builder = builder.include(p);
+                }
+
+                LatLngBounds latLngBounds = builder.build();
+                MapStatusUpdate us = MapStatusUpdateFactory.newLatLngBounds(latLngBounds,
+                        (int)(mMapView.getWidth()*0.5), (int)(mMapView.getHeight()*0.5));
+
+                Log.d("mMapView", "getWidth:" + mMapView.getWidth() + "getHeight:" + mMapView.getHeight());
+
+                mBaiduMap.setMapStatus(us);
+                Log.d("mBaiduMap", "getMapStatus:" + mBaiduMap.getMapStatus());
+            }
+        });
 
         //百度地图定位初始化
         mLocationClient = new LocationClient(getContext());
@@ -205,21 +260,13 @@ public class DriverGpsFragment extends BaseFragment implements OnHttpResponseLis
 
     }
 
-    private static final int GETDRIVERGPSLIST = 1;
-    private void getDriverGpsList(){
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //TODO * 通过admin_id获取运输员列表信息
-                HttpRequest.getInfo(admin_id, "queryMoreDriversGps.do", GETDRIVERGPSLIST, DriverGpsFragment.this);
-            }
-        }, 1000);
-    }
+
 
     private void setDriverGpsList(final List<Map> gpsList){
         runUiThread(new Runnable() {
             @Override
             public void run() {
+                mBaiduMap.clear();
                 for (int i=0 ; i<gpsList.size(); i++){
                     if (gpsList.get(i).get("driver_latitude") != null &&
                             gpsList.get(i).get("driver_longitude") != null){
@@ -228,17 +275,23 @@ public class DriverGpsFragment extends BaseFragment implements OnHttpResponseLis
                         double longtitude = Double.parseDouble((String) gpsList.get(i).get("driver_longitude"));
                         int tem = (int) gpsList.get(i).get("car_tem");
                         LatLng car_point = new LatLng(latitude, longtitude);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("driver_name", (String) gpsList.get(i).get("driver_name"));
+                        bundle.putString("admin_id", StringUtil.getTrimedString(gpsList.get(i).get("admin_id")));
+                        bundle.putString("order_id", StringUtil.getTrimedString(gpsList.get(i).get("order_id")));
 
                         OverlayOptions car_options;
                         if (tem <=0){
                             //将car覆盖到百度地图上
                             car_options = new MarkerOptions()
                                     .position(car_point)
-                                    .icon(cold_max);
+                                    .icon(cold_max)
+                                    .extraInfo(bundle);
                         } else {
                             car_options = new MarkerOptions()
                                     .position(car_point)
-                                    .icon(warm_max);
+                                    .icon(warm_max)
+                                    .extraInfo(bundle);
                         }
 
                         mBaiduMap.addOverlay(car_options);
@@ -246,25 +299,8 @@ public class DriverGpsFragment extends BaseFragment implements OnHttpResponseLis
                         points.add(car_point);
 
                     }
-                    mBaiduMap.setOnMapLoadedCallback(new BaiduMap.OnMapLoadedCallback() {
-                        @Override
-                        public void onMapLoaded() {
-                            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                            for (LatLng p : points){
-                                builder = builder.include(p);
-                            }
-
-                            LatLngBounds latLngBounds = builder.build();
-                            MapStatusUpdate us = MapStatusUpdateFactory.newLatLngBounds(latLngBounds,
-                                    (int)(mMapView.getWidth()*0.5), (int)(mMapView.getHeight()*0.5));
-
-                            Log.d("mMapView", "getWidth:" + mMapView.getWidth() + "getHeight:" + mMapView.getHeight());
-
-                            mBaiduMap.setMapStatus(us);
-                            Log.d("mBaiduMap", "getMapStatus:" + mBaiduMap.getMapStatus());
-                        }
-                    });
                 }
+
             }
         });
     }
@@ -291,6 +327,7 @@ public class DriverGpsFragment extends BaseFragment implements OnHttpResponseLis
     public void onHttpResponse(int requestCode, String resultJson, Exception e) {
         if (e != null){
             e.printStackTrace();
+            showShortToast(R.string.get_failed);
             return;
         }
         if (resultJson == null){
@@ -302,6 +339,7 @@ public class DriverGpsFragment extends BaseFragment implements OnHttpResponseLis
             case GETDRIVERGPSLIST:
                 List<Map> driverGpsList = JSONObject.parseArray(resultJson, Map.class);
                 Log.d(TAG, driverGpsList.toString());
+                showShortToast("成功获取订单位置");
                 setDriverGpsList(driverGpsList);
                 break;
         }
@@ -309,9 +347,11 @@ public class DriverGpsFragment extends BaseFragment implements OnHttpResponseLis
 
     //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+
     @Override
     public void onResume() {
         super.onResume();
+        android.util.Log.d(TAG, "DriverGpsFragment onResume: ");
         mMapView.onResume();
     }
 
@@ -345,33 +385,22 @@ public class DriverGpsFragment extends BaseFragment implements OnHttpResponseLis
 
     //内部类,尽量少用<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-//    public class MylocationListener extends BDAbstractLocationListener {
-//
-//        //用于判断是否第一次打开定位
-//        private boolean isFirstIn = true;
-//
-//        @Override
-//        public void onReceiveLocation(BDLocation bdLocation) {
-//            if (bdLocation == null || mMapView == null){
-//                return;
-//            }
-//
-////            if (isFirstIn) {
-////                //描述地图状态将要发生的变化,通过当前经纬度来使地图显示到该位置
-////                MapStatusUpdate msu = MapStatusUpdateFactory.newLatLngBounds();
-////                //改变地图状态
-////                mBaiduMap.setMapStatus(msu);
-////                isFirstIn = false;
-////            }
-//
-//            //TODO * 此处的getRadius,getDirection,getLatitude,getLongitude应为所需的gps信息，需存储到数据库中
-//            MyLocationData locData = new MyLocationData.Builder()
-//                    .accuracy(bdLocation.getRadius())
-//                    .direction(bdLocation.getDirection()).latitude(bdLocation.getLatitude())
-//                    .longitude(bdLocation.getLongitude()).build();
-//            mBaiduMap.setMyLocationData(locData);
-//        }
-//    }
+    private static final int GETDRIVERGPSLIST = 1;
+    private boolean thread_flag = true;
+    class GetGpsThread extends Thread{
+        @Override
+        public void run() {
+            while(thread_flag){
+                try {
+                    HttpRequest.getInfo(admin_id, "queryMoreDriversGps.do", GETDRIVERGPSLIST, DriverGpsFragment.this);
+
+                    Thread.sleep(20000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     //内部类,尽量少用>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 

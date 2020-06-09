@@ -26,7 +26,6 @@ android {
 }
 
 dependencies {
-    //TODO 如果这些依赖和你项目中的依赖有冲突，则需要统一版本号，或者删除重复的依赖
     api fileTree(include: ['*.jar'], dir: 'libs')
     api 'androidx.appcompat:appcompat:1.1.0'
     api 'com.squareup.okhttp3:okhttp:4.4.0'

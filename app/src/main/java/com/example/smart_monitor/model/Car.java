@@ -2,8 +2,6 @@ package com.example.smart_monitor.model;
 
 import java.io.Serializable;
 
-import zuo.biao.library.base.BaseModel;
-
 public class Car implements Serializable {
 
     private static final long serialVersionUID = -7620589932244521730L;
@@ -11,7 +9,7 @@ public class Car implements Serializable {
     private long car_id;
     private long driver_id;
     private String car_weight;  //汽车重量
-    private String car_tem;     //汽车温度
+    private int car_tem;     //汽车温度
     private String car_type;    //汽车型号
     public Car(){
 
@@ -46,11 +44,11 @@ public class Car implements Serializable {
         this.car_weight = car_weight;
     }
 
-    public String getCar_tem() {
+    public int getCar_tem() {
         return car_tem;
     }
 
-    public void setCar_tem(String car_tem) {
+    public void setCar_tem(int car_tem) {
         this.car_tem = car_tem;
     }
 

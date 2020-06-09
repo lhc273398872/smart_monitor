@@ -16,18 +16,19 @@ import java.util.Map;
 import zuo.biao.library.interfaces.OnHttpResponseListener;
 import zuo.biao.library.manager.HttpManager;
 import zuo.biao.library.model.Parameter;
+import zuo.biao.library.util.Log;
 import zuo.biao.library.util.StringUtil;
 
 public class HttpRequest {
     private static final String TAG = "HttpRequest";
 
-    //TODO * 重写URL_BASE方法，此处需为ip地址，即在SettingUtil中修改URL_SERVER_ADDRESS_NORMAL_HTTPS常量
+    //重写URL_BASE方法，此处需为ip地址，即在SettingUtil中修改URL_SERVER_ADDRESS_NORMAL_HTTPS常量
 //    public static final String URL_BASE = SettingUtil.getCurrentServerAddress();
     //http://10.34.10.5
     //http://192.168.137.1    宽带热点ip
     //192.168.43.210       手机热点ip
     //192.168.137.122       舍友宽带ip
-    public static final String URL_BASE = "http://192.168.137.1:8001/smart_monitor";
+    public static final String URL_BASE = "http://192.168.43.210:8001/smart_monitor";
     public static final String PAGE_NUM = "pageNum";
     public static final String JSONSTR = "jsonStr";
     public static final String ListJSONSTR = "listJsonStr";
@@ -116,6 +117,14 @@ public class HttpRequest {
     //account>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     //更新>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    public static <T> void updataInfo(List<T> infoList, String doUrl,
+                                   final int requestCode, final OnHttpResponseListener listener){
+        Map<String, Object> request = new HashMap<>();
+        String JSONList = JSONArray.toJSONString(infoList);
+        request.put(JSONSTR, JSONList);
+        HttpManager.getInstance().post(request, URL_BASE + "/" + doUrl, requestCode, listener);
+    }
+
     public static <T> void updateInfo(T infoClass, String doUrl,
                                    final int requestCode, final OnHttpResponseListener listener){
         String jsonStr = JSONObject.toJSONString(infoClass);
@@ -160,6 +169,16 @@ public class HttpRequest {
         String JSONList = JSONArray.toJSONString(infoList);
         request.put(JSONSTR, JSONList);
         request.put(ID, id);
+        HttpManager.getInstance().post(request, URL_BASE + "/" + doUrl, requestCode, listener);
+    }
+
+    public static <T> void getInfo(long first_id, long second_id,  List<T> infoList, String doUrl,
+                                   final int requestCode, final OnHttpResponseListener listener){
+        Map<String, Object> request = new HashMap<>();
+        String JSONList = JSONArray.toJSONString(infoList);
+        request.put(JSONSTR, JSONList);
+        request.put(FIREST_ID, first_id);
+        request.put(SECOND_ID, second_id);
         HttpManager.getInstance().post(request, URL_BASE + "/" + doUrl, requestCode, listener);
     }
 
@@ -322,7 +341,7 @@ public class HttpRequest {
         Map<String, Object> request = new HashMap<>();
         request.put("id",id);
         request.put("order_state", order_state);
-
+        Log.d("HttpRequest order_state:","HttpRequest order_state:" + order_state);
         //完成eclipse中的应用服务器，通过post方法获取数据库中的司机数据
         HttpManager.getInstance().post(request, URL_BASE + "/queryDriverOrder.do", requestCode, listener);
     }

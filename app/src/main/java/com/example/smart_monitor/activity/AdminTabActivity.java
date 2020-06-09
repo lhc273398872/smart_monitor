@@ -160,7 +160,7 @@ public class AdminTabActivity extends BaseBottomTabActivity
                 //重写了DemoTabFragment
                 return driverTabFragment;
             case 3:
-                return SettingFragment.createInstance(getActivity());
+                return SettingFragment.createInstance(getActivity(), admin_id, true);
             default:
                 return houseTabFragment;
         }
@@ -177,8 +177,8 @@ public class AdminTabActivity extends BaseBottomTabActivity
         //0为
         switch (position){
             case 0:
-                topRightButton.addView(small_refresh);
                 topRightButton.addView(small_add);
+                topRightButton.addView(small_refresh);
                 break;
             case 1:
                 break;
@@ -289,8 +289,8 @@ public class AdminTabActivity extends BaseBottomTabActivity
                     showShortToast("再按一次退出");
                     firstTime = secondTime;
                 } else {//完全退出
-                    moveTaskToBack(false);//应用退到后台
-                    System.exit(0);
+//                    moveTaskToBack(false);//应用退到后台
+                    finish();
                 }
                 return true;
         }

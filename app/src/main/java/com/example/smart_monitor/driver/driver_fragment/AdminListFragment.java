@@ -111,7 +111,6 @@ public class AdminListFragment extends BaseHttpListFragment<AdminUser, ListView,
 
     }
 
-    //TODO * 将数据库中获取到的Admin_user值放入list中
     @Override
     public void getListAsync(final int page) {
         showProgressDialog(R.string.loading);
@@ -123,7 +122,6 @@ public class AdminListFragment extends BaseHttpListFragment<AdminUser, ListView,
 
                 //此处的getGoodsList从网络获取内容
                 //需要使用page的负数来作为requestCode
-                //TODO * 获取管理员列表
                 HttpRequest.getInfo("queryMoreAdminUser.do", -page, AdminListFragment.this);
                 //onHttpResponse(-page, page >= 5 ? null : JSON.toJSONString(ItemUtil.getGoodsList(page, getCacheCount())), null);
             }

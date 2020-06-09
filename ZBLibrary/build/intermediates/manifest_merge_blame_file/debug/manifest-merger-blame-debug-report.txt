@@ -5,163 +5,163 @@
 5    android:versionName="1.0" > <!-- 复制粘贴到你的工程的AndroidManifest.xml内对应位置 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
 6    <uses-sdk
 7        android:minSdkVersion="15"
-7-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml
+7-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml
 8        android:targetSdkVersion="28" />
-8-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml
+8-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml
 9
 10    <!-- 复制粘贴到你的工程的AndroidManifest.xml内对应位置 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
 11
 12
 13    <!-- 需要的权限 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
 14    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-14-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:10:5-80
-14-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:10:22-77
+14-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:10:5-80
+14-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:10:22-77
 15    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-15-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:11:5-81
-15-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:11:22-78
+15-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:11:5-81
+15-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:11:22-78
 16    <uses-permission android:name="android.permission.INTERNET" />
-16-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:12:5-67
-16-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:12:22-64
+16-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:12:5-67
+16-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:12:22-64
 17    <!-- CommonUtil等类的部分功能需要，不需要的功能对应的权限可不复制粘贴 <<<<<< -->
 18    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-18-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:14:5-79
-18-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:14:22-76
+18-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:14:5-79
+18-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:14:22-76
 19    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-19-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:15:5-76
-19-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:15:22-73
+19-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:15:5-76
+19-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:15:22-73
 20    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-20-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:16:5-79
-20-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:16:22-76
+20-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:16:5-79
+20-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:16:22-76
 21    <uses-permission android:name="android.permission.CAMERA" />
-21-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:17:5-65
-21-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:17:22-62
+21-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:17:5-65
+21-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:17:22-62
 22    <uses-permission android:name="android.permission.CALL_PHONE" />
-22-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:18:5-69
-22-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:18:22-66
+22-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:18:5-69
+22-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:18:22-66
 23    <uses-permission android:name="android.permission.SEND_SMS" />
-23-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:19:5-67
-23-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:19:22-64
+23-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:19:5-67
+23-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:19:22-64
 24
 25    <!-- CommonUtil等类的部分功能需要，不需要的功能对应的权限可不复制粘贴 >>>>>> -->
 26    <!-- 需要的权限 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
 27    <application android:label="@string/app_name" >
-27-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:23:5-84:19
-27-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:24:9-41
+27-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:23:5-84:19
+27-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:24:9-41
 28
 29        <!-- 更好的适配全面屏 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
 30        <meta-data
-30-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:28:9-76
+30-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:28:9-76
 31            android:name="android.max_aspect"
-31-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:28:20-53
+31-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:28:20-53
 32            android:value="2.1" />
-32-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:28:54-73
+32-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:28:54-73
 33
 34        <activity
-34-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:30:9-34:63
+34-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:30:9-34:63
 35            android:name="zuo.biao.library.ui.SelectPictureActivity"
-35-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:31:13-69
+35-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:31:13-69
 36            android:screenOrientation="portrait"
-36-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:32:13-49
+36-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:32:13-49
 37            android:theme="@style/WindowCompleteAlpha"
-37-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:33:13-55
+37-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:33:13-55
 38            android:windowSoftInputMode="stateAlwaysHidden" />
-38-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:34:13-60
+38-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:34:13-60
 39        <activity
-39-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:35:9-39:63
+39-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:35:9-39:63
 40            android:name="zuo.biao.library.ui.CutPictureActivity"
-40-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:36:13-66
+40-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:36:13-66
 41            android:screenOrientation="portrait"
-41-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:37:13-49
+41-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:37:13-49
 42            android:theme="@style/Window"
-42-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:38:13-42
+42-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:38:13-42
 43            android:windowSoftInputMode="stateAlwaysHidden" />
-43-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:39:13-60
+43-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:39:13-60
 44        <activity
-44-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:40:9-44:88
+44-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:40:9-44:88
 45            android:name="zuo.biao.library.ui.WebViewActivity"
-45-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:41:13-63
+45-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:41:13-63
 46            android:launchMode="singleTop"
-46-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:42:13-43
+46-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:42:13-43
 47            android:screenOrientation="portrait"
-47-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:43:13-49
+47-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:43:13-49
 48            android:windowSoftInputMode="stateHidden|adjustResize|adjustUnspecified" />
-48-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:44:13-85
+48-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:44:13-85
 49        <activity
-49-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:45:9-48:86
+49-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:45:9-48:86
 50            android:name="zuo.biao.library.ui.EditTextInfoActivity"
-50-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:46:13-68
+50-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:46:13-68
 51            android:screenOrientation="portrait"
-51-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:47:13-49
+51-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:47:13-49
 52            android:windowSoftInputMode="stateVisible|adjustPan|adjustUnspecified" />
-52-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:48:13-83
+52-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:48:13-83
 53        <activity
-53-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:49:9-52:57
+53-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:49:9-52:57
 54            android:name="zuo.biao.library.ui.ServerSettingActivity"
-54-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:50:13-69
+54-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:50:13-69
 55            android:screenOrientation="portrait"
-55-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:51:13-49
+55-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:51:13-49
 56            android:windowSoftInputMode="stateHidden" />
-56-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:52:13-54
+56-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:52:13-54
 57        <activity
-57-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:53:9-57:63
+57-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:53:9-57:63
 58            android:name="zuo.biao.library.ui.TopMenuWindow"
-58-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:54:13-61
+58-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:54:13-61
 59            android:screenOrientation="portrait"
-59-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:55:13-49
+59-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:55:13-49
 60            android:theme="@style/Window"
-60-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:56:13-42
+60-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:56:13-42
 61            android:windowSoftInputMode="stateAlwaysHidden" />
-61-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:57:13-60
+61-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:57:13-60
 62        <activity
-62-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:58:9-62:63
+62-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:58:9-62:63
 63            android:name="zuo.biao.library.ui.BottomMenuWindow"
-63-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:59:13-64
+63-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:59:13-64
 64            android:screenOrientation="portrait"
-64-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:60:13-49
+64-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:60:13-49
 65            android:theme="@style/Window"
-65-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:61:13-42
+65-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:61:13-42
 66            android:windowSoftInputMode="stateAlwaysHidden" />
-66-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:62:13-60
+66-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:62:13-60
 67        <activity
-67-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:63:9-67:89
+67-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:63:9-67:89
 68            android:name="zuo.biao.library.ui.EditTextInfoWindow"
-68-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:64:13-66
+68-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:64:13-66
 69            android:screenOrientation="portrait"
-69-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:65:13-49
+69-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:65:13-49
 70            android:theme="@style/Window"
-70-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:66:13-42
+70-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:66:13-42
 71            android:windowSoftInputMode="stateVisible|adjustResize|adjustUnspecified" />
-71-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:67:13-86
+71-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:67:13-86
 72        <activity
-72-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:68:9-72:63
+72-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:68:9-72:63
 73            android:name="zuo.biao.library.ui.PlacePickerWindow"
-73-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:69:13-65
+73-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:69:13-65
 74            android:screenOrientation="portrait"
-74-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:70:13-49
+74-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:70:13-49
 75            android:theme="@style/Window"
-75-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:71:13-42
+75-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:71:13-42
 76            android:windowSoftInputMode="stateAlwaysHidden" />
-76-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:72:13-60
+76-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:72:13-60
 77        <activity
-77-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:73:9-77:63
+77-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:73:9-77:63
 78            android:name="zuo.biao.library.ui.DatePickerWindow"
-78-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:74:13-64
+78-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:74:13-64
 79            android:screenOrientation="portrait"
-79-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:75:13-49
+79-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:75:13-49
 80            android:theme="@style/Window"
-80-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:76:13-42
+80-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:76:13-42
 81            android:windowSoftInputMode="stateAlwaysHidden" />
-81-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:77:13-60
+81-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:77:13-60
 82        <activity
-82-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:78:9-82:63
+82-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:78:9-82:63
 83            android:name="zuo.biao.library.ui.TimePickerWindow"
-83-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:79:13-64
+83-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:79:13-64
 84            android:screenOrientation="portrait"
-84-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:80:13-49
+84-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:80:13-49
 85            android:theme="@style/Window"
-85-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:81:13-42
+85-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:81:13-42
 86            android:windowSoftInputMode="stateAlwaysHidden" />
-86-->D:\STUDY_DOCUMENT\android_mod\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:82:13-60
+86-->D:\STUDY_DOCUMENT\android_studio\Smart_monitor\ZBLibrary\src\main\AndroidManifest.xml:82:13-60
 87    </application>
 88
 89</manifest>

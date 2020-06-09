@@ -99,7 +99,7 @@ public class CarTabFragment extends BaseTabFragment
 
     @Override
     protected String[] getTabNames() {
-        return new String[] {"货物列表", "车辆信息"};
+        return new String[] {"车辆信息", "货物列表"};
     }
 
     @Override
@@ -107,9 +107,9 @@ public class CarTabFragment extends BaseTabFragment
 
         switch (position){
             case 1:
-                return carInfoFragment;
-            default:
                 return CarItemListFragment.createInstance(driver_id);
+            default:
+                return carInfoFragment;
         }
     }
 
@@ -132,6 +132,9 @@ public class CarTabFragment extends BaseTabFragment
 
     }
 
+    public void refreshCarInfo(){
+        carInfoFragment.refreshCarInfo();
+    }
 
     //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 

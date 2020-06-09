@@ -17,6 +17,7 @@
             android:id="@+id/llCarTabTopRightButtonContainer"
             style="@style/ll_horizontal_wrap_wrap"
             android:layout_height="@dimen/topbar_height"
+            android:layout_marginEnd="20dp"
             android:layout_alignParentRight="true"
             android:paddingEnd="10dp">
         </LinearLayout>
@@ -25,10 +26,12 @@
 
     <View style="@style/divider_horizontal_1px" />
 
-    <ScrollView
+    <RelativeLayout
         style="@style/match_wrap">
 
-        <LinearLayout style="@style/ll_vertical_match_match" >
+        <LinearLayout
+            style="@style/ll_vertical_match_wrap"
+            android:id="@+id/llCarInfo">
 
             <LinearLayout style="@style/edit_item" >
 
@@ -86,6 +89,11 @@
                     android:layout_weight="1"
                     android:text="" />
 
+                <TextView
+                    style="@style/content_item_rt_tv"
+                    android:gravity="center|left"
+                    android:text="T" />
+
                 <ImageView style="@style/content_item_rt_img" />
             </LinearLayout>
 
@@ -109,7 +117,22 @@
 
             <View style="@style/divider_horizontal_1px" />
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/llCarInfo"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp">
+            <FrameLayout
+                android:id="@+id/lvTemFragment"
+                style="@style/match_wrap"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <View
         style="@style/divider_horizontal_1px"

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.example.smart_monitor.R;
 import com.example.smart_monitor.fragment.HouseTabFragment;
+import com.example.smart_monitor.fragment.ItemListFragment;
 import com.example.smart_monitor.model.Goods;
 import com.example.smart_monitor.model.SaveHouse;
 import com.example.smart_monitor.util.HttpRequest;
@@ -24,6 +25,7 @@ import com.example.smart_monitor.util.ItemUtil;
 import zuo.biao.library.base.BaseActivity;
 import zuo.biao.library.interfaces.OnBottomDragListener;
 import zuo.biao.library.interfaces.OnHttpResponseListener;
+import zuo.biao.library.ui.BottomMenuWindow;
 import zuo.biao.library.ui.EditTextInfoActivity;
 import zuo.biao.library.ui.EditTextInfoWindow;
 import zuo.biao.library.ui.TextClearSuit;
@@ -45,6 +47,7 @@ public class HouseActivity extends BaseActivity
     private final int ADDHOUSE = 2;
     private final int UPDATEHOUSE = 3;
     private final int GETADDRESS = 4;
+    private final int DELHOUSE = 5;
 
     public static Intent createIntent(Context context, Long admin_id, Long house_id) {
         return new Intent(context, HouseActivity.class).
@@ -95,6 +98,7 @@ public class HouseActivity extends BaseActivity
 
     private ImageView small_add;
     private TextView small_over;
+    private ImageView small_delete;
 
     @Override
     public void initView() {//必须调用
@@ -117,10 +121,14 @@ public class HouseActivity extends BaseActivity
         small_over.setText("确认修改");
         small_over.setVisibility(View.GONE);
 
+        small_delete = new ImageView(this);
+        small_delete.setImageResource(R.drawable.ic_delete_whiet_24dp);
+
         llHouseTopRightButton.removeAllViews();
         if (house_id == 0){
             llHouseTopRightButton.addView(small_add);
         } else {
+            llHouseTopRightButton.addView(small_delete);
             llHouseTopRightButton.addView(small_over);
         }
 
@@ -188,8 +196,10 @@ public class HouseActivity extends BaseActivity
         tvHouseName.setOnClickListener(this);
         tvHouseSize.setOnClickListener(this);
         tvHouseLocation.setOnClickListener(this);
+
         small_add.setOnClickListener(new AddOnclick());
         small_over.setOnClickListener(new OverOnclick());
+        small_delete.setOnClickListener(new DelOnclick());
 
         new TextClearSuit().addClearListener(etHouseRemark, findView(R.id.ivHouseRemarkClear));
 
@@ -221,6 +231,19 @@ public class HouseActivity extends BaseActivity
                         break;
                     default:
                         showShortToast("添加仓库成功");
+                        setResult();
+                        finish();
+                        break;
+                }
+                break;
+            case DELHOUSE:
+                e_state = result.getInteger("e");
+                switch (e_state){
+                    case 0:
+                        showShortToast("检查网络，也可能存在订单未完结");
+                        break;
+                    default:
+                        showShortToast("删除仓库成功");
                         setResult();
                         finish();
                         break;
@@ -301,9 +324,20 @@ public class HouseActivity extends BaseActivity
     private class AddOnclick implements OnClickListener {
         @Override
         public void onClick(View v) {
-            //TODO * 完成添加仓库
+            //完成添加仓库
             Log.d(TAG, "house:" + house);
             HttpRequest.updateInfo(house, "insertSimpleHouse.do", ADDHOUSE,HouseActivity.this);
+        }
+    }
+
+    private static final String[] TOPBAR_TAG_NAMES = {"确定删除", "取消删除"};
+    private class DelOnclick implements OnClickListener {
+        @Override
+        public void onClick(View v) {
+            //完成删除仓库
+            Log.d(TAG, "house:" + house);
+            toActivity(BottomMenuWindow.createIntent(context, TOPBAR_TAG_NAMES)
+                    .putExtra(BottomMenuWindow.INTENT_TITLE, "确认是否删除（若订单中包含该仓库，则仓库无法被删除）"), DELHOUSE, false);
         }
     }
 
@@ -336,17 +370,30 @@ public class HouseActivity extends BaseActivity
                 setHouse(house);
                 break;
             case ALTER_HOUSE_SIZE:
-                //TODO 获取数量返回值
                 house.setHouse_size(data == null ? null : data.getStringExtra
                         (EditTextInfoActivity.RESULT_VALUE));
                 setHouse(house);
                 break;
             case GETADDRESS:
-                //TODO * 仓库的经纬度存储
                 String house_location = data.getStringExtra("RESULT_STRING");
+                Double house_latitude = data.getDoubleExtra("RESULT_LATITUDE", -1);
+                Double house_longitude = data.getDoubleExtra("RESULT_LONGITUDE", -1);
+
                 house.setHouse_location(house_location);
+                house.setHouse_latitude("" + house_latitude);
+                house.setHouse_longitude("" + house_longitude);
                 setHouse(house);
                 break;
+            case DELHOUSE:
+                switch (data.getIntExtra(BottomMenuWindow.RESULT_ITEM_ID, 1)) {
+                    case 1:
+                        //                        showShortToast("货物" + delete_goodsId + "取消删除");
+                        break;
+                    default:
+                        //                        showShortToast("货物" + delete_goodsId + "删除货物");
+                        HttpRequest.getInfo(house.getHouse_id(), "deleteSimpleHouse.do", DELHOUSE, HouseActivity.this);
+                        break;
+                }
         }
         small_over.setVisibility(View.VISIBLE);
     }

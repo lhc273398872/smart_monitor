@@ -19,10 +19,10 @@ import androidx.annotation.Nullable;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.smart_monitor.R;
+import com.example.smart_monitor.driver.driver_activity.DriverInfoActivity;
 import com.example.smart_monitor.driver.driver_activity.DriverTabActivity;
 import com.example.smart_monitor.model.AdminUser;
 import com.example.smart_monitor.model.Driver;
-import com.example.smart_monitor.service.DriverService;
 import com.example.smart_monitor.util.HttpRequest;
 
 import zuo.biao.library.base.BaseActivity;
@@ -165,20 +165,23 @@ public class LoginActivity extends BaseActivity
             adminUser = zuo.biao.library.util.JSON.parseObject(resultJson, AdminUser.class);
 
             if (adminUser == null){
-                showShortToast(R.string.get_failed);
+                toActivity(AdminInfoActivity.createIntent(this, (long) 0, tel));
                 return;
+            } else {
+//                showShortToast(adminUser.toString());
+                saveAccount(state, cbRemPwd.isChecked());
             }
-            showShortToast(adminUser.toString());
-            saveAccount(state, cbRemPwd.isChecked());
         } else if (requestCode == DRIVERUSER){
             driver = zuo.biao.library.util.JSON.parseObject(resultJson, Driver.class);
 
             if (driver == null){
-                showShortToast(R.string.get_failed);
+
+                toActivity(DriverInfoActivity.createIntent(this, (long) 0, tel));
                 return;
+            } else {
+//                showShortToast(driver.toString());
+                saveAccount(state, cbRemPwd.isChecked());
             }
-            showShortToast(driver.toString());
-            saveAccount(state, cbRemPwd.isChecked());
         }
 
 
@@ -211,7 +214,7 @@ public class LoginActivity extends BaseActivity
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SIGNRESULT){
-            etAccount.setText(data.getStringExtra("tel"));
+            etAccount.setText(data == null? "" : data.getStringExtra("tel"));
         }
     }
 }

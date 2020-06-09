@@ -28,6 +28,7 @@
 
     <LinearLayout
         style="@style/ll_vertical_match_wrap"
+        android:id="@+id/llItem"
         android:gravity="left|center_vertical"
         android:paddingLeft="4dp" >
 
@@ -63,7 +64,8 @@
 
         <LinearLayout
             style="@style/ll_horizontal_match_wrap"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:visibility="gone">
 
             <TextView
                 style="@style/text_middle"
@@ -94,7 +96,8 @@
 
         <LinearLayout
             style="@style/ll_horizontal_match_wrap"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:visibility="gone">
 
             <TextView
                 style="@style/text_middle"

@@ -9,11 +9,18 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentTransaction;
+
 import com.alibaba.fastjson.JSONObject;
 
 import com.example.smart_monitor.R;
+import com.example.smart_monitor.driver.driver_activity.DriverInfoActivity;
+import com.example.smart_monitor.fragment.DriverListFragment;
+import com.example.smart_monitor.fragment.ItemListFragment;
+import com.example.smart_monitor.fragment.TemListFragment;
 import com.example.smart_monitor.model.Driver;
 import com.example.smart_monitor.model.User;
+import com.example.smart_monitor.util.HttpRequest;
 import com.example.smart_monitor.util.MenuUtil;
 import com.example.smart_monitor.view.DriverView;
 
@@ -53,16 +60,17 @@ public class DriverActivity extends BaseActivity implements OnClickListener, OnB
 
     //启动方法>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+    private static final int GETDRIVER = 1;
 
-    private long driverId = -1;
+    private long driver_id = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driver_activity, this);
 
         intent = getIntent();
-        driverId = intent.getLongExtra(INTENT_ID, driverId);
-        if (driverId < 0) {
+        driver_id = intent.getLongExtra(INTENT_ID, driver_id);
+        if (driver_id < 0) {
             finishWithError("用户不存在！");
             return;
         }
@@ -87,6 +95,8 @@ public class DriverActivity extends BaseActivity implements OnClickListener, OnB
     private EditText etDriverRemark;
     private TextView tvDriverTag;
     private TextView tvDriverRightButton;
+    private TextView tvOverOrder;
+    private TextView tvWrongOps;
 
     private ViewGroup llDriverBottomMenuContainer;
     private BottomMenuView bottomMenuView;
@@ -102,6 +112,8 @@ public class DriverActivity extends BaseActivity implements OnClickListener, OnB
         etDriverRemark = findView(R.id.etDriverRemark);
         tvDriverTag = findView(R.id.tvDriverTag);
         tvDriverRightButton = findView(R.id.tvDriverTabRight);
+        tvOverOrder = findView(R.id.tvOverOrder);
+        tvWrongOps = findView(R.id.tvWrongOps);
 
         //添加底部菜单<<<<<<<<<<<<<<<<<<<<<<
         llDriverBottomMenuContainer = findView(R.id.llDriverBottomMenuContainer);
@@ -110,14 +122,13 @@ public class DriverActivity extends BaseActivity implements OnClickListener, OnB
         bottomMenuView = new BottomMenuView(context, REQUEST_TO_BOTTOM_MENU);
         llDriverBottomMenuContainer.addView(bottomMenuView.createView());
         //添加底部菜单>>>>>>>>>>>>>>>>>>>>>>>
-
     }
 
     private Driver driver;
     /**显示用户
      * @param driver_
      */
-    private void setDriver(Driver driver_) {
+    private void setDriver(final Driver driver_) {
         this.driver = driver_;
         if (driver == null) {
             Log.w(TAG, "setUser  user == null >> user = new User();");
@@ -133,7 +144,10 @@ public class DriverActivity extends BaseActivity implements OnClickListener, OnB
                 driverView.bindView(driver);//方式三
 
 //                etDriverRemark.setText(StringUtil.getTrimedString(driver.getHead()));
+
                 tvDriverTag.setText(StringUtil.getTrimedString(driver.getTel()));
+                tvOverOrder.setText(StringUtil.getTrimedString(driver.getOver_order()));
+                tvWrongOps.setText(StringUtil.getTrimedString(driver.getWrong_ops()));
             }
         });
     }
@@ -152,22 +166,26 @@ public class DriverActivity extends BaseActivity implements OnClickListener, OnB
 
     //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-
+    private FragmentTransaction ft;
+    private TemListFragment temListFragment;
     @Override
     public void initData() {//必须调用
 
+        ft = fragmentManager.beginTransaction();
+        temListFragment = TemListFragment.createInstance(driver_id);
+        ft.add(R.id.lvTemFragment, temListFragment);
+        ft.commitNow();
+
         bottomMenuView.bindView(MenuUtil.getMenuList(MenuUtil.USER));
 
-        if (driverId == 0){
+        if (driver_id == 0){
             driver = new Driver();
             setDriver(driver);
         } else {
             runThread(TAG + "initData", new Runnable() {
                 @Override
                 public void run() {
-                    setDriver(CacheManager.getInstance().get(Driver.class, "" + driverId));//先加载缓存数据，比网络请求快很多
-                    //TODO 修改以下请求
-                    //通用 HttpRequest.getUser(userId, 0, UserActivity.this);//http请求获取一个User
+                    HttpRequest.getInfo(driver_id, "querySimpleDriver.do", GETDRIVER, DriverActivity.this);
                     //更方便但对字符串格式有要求 HttpRequest.getUser(userId, 0, new OnHttpResponseListenerImpl(UserActivity.this));
                 }
             });
@@ -242,8 +260,8 @@ public class DriverActivity extends BaseActivity implements OnClickListener, OnB
         Driver driver = null;
         try {//如果服务器返回的json一定在最外层有个data，可以用OnHttpResponseListenerImpl解析
             JSONObject jsonObject = JSON.parseObject(resultJson);
-            JSONObject data = jsonObject == null ? null : jsonObject.getJSONObject("data");
-            driver = JSON.parseObject(data, Driver.class);
+//            JSONObject data = jsonObject == null ? null : jsonObject.getJSONObject("data");
+            driver = JSON.parseObject(jsonObject, Driver.class);
         } catch (Exception e1) {
             Log.e(TAG, "onHttpResponse  try { user = Json.parseObject(... >>" +
                     " } catch (JSONException e1) {\n" + e1.getMessage());
@@ -320,7 +338,7 @@ public class DriverActivity extends BaseActivity implements OnClickListener, OnB
                 break;
             case REQUEST_TO_EDIT_TEXT_INFO:
                 if (driver == null) {
-                    driver = new Driver(driverId);
+                    driver = new Driver(driver_id);
                 }
 //                driver.setTag(data == null ? null : data.getStringExtra(EditTextInfoActivity.RESULT_VALUE));
                 setDriver(driver);

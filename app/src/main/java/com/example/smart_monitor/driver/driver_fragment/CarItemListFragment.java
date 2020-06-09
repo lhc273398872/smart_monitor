@@ -3,14 +3,18 @@ package com.example.smart_monitor.driver.driver_fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.smart_monitor.R;
+import com.example.smart_monitor.activity.ItemActivity;
 import com.example.smart_monitor.adapter.ItemAdapter;
 import com.example.smart_monitor.model.Goods;
 import com.example.smart_monitor.util.HttpRequest;
@@ -185,17 +189,29 @@ public class CarItemListFragment extends BaseHttpListFragment<Goods, ListView, I
 
     }
 
+    private List<Goods> goodsList;
+    @Override
+    public void onHttpResponse(int requestCode, String resultJson, Exception e) {
+
+        if (resultJson == null){
+            showShortToast(R.string.get_failed);
+            return;
+        }
+
+        goodsList = JSON.parseArray(resultJson, Goods.class);
+
+        super.onHttpResponse(requestCode, resultJson, e);
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //TODO * 通过goods_id和order_id来获取货物信息
-//        if (driver_id != -1 && id > 0) {
-//            //TODO 此处的1为测试，之后需调整，可参照ItemActivity
-//            //此处的id为goods_id
-//            toActivity(ItemActivity.createIntent(context, house_id, id),1);
-//            Log.d("test","lhcItemClicktest");
-//        } else if (order_id != -1 && admin_id != -1){
-//            toActivity(ItemActivity.createIntent(context, order_id, id, true));
-//        }
+
+        for (Goods goods : goodsList){
+            if (goods.getGoods_id() == id){
+                toActivity(ItemActivity.createIntent(context, goods.getOrder_id(), id, true));
+            }
+        }
+
     }
 
     //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

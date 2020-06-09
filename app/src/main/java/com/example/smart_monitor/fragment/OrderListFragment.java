@@ -22,6 +22,7 @@ import com.example.smart_monitor.util.HttpRequest;
 import com.example.smart_monitor.util.ItemUtil;
 import com.example.smart_monitor.util.OrderUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +47,19 @@ public class OrderListFragment extends BaseHttpListFragment<Order, ListView, Ord
 
     //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-    public static final String ADMIN_ID = "ADMIN_ID";
+    private static final String ADMIN_ID = "ADMIN_ID";
+    private static final String ORDER_STATE = "ORDER_STATE";
+
+    public static OrderListFragment createInstance(long admin_id, int order_state) {
+        OrderListFragment fragment = new OrderListFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putLong(ADMIN_ID, admin_id);
+        bundle.putInt(ORDER_STATE, order_state);
+
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     public static OrderListFragment createInstance(long admin_id) {
         OrderListFragment fragment = new OrderListFragment();
@@ -65,13 +78,14 @@ public class OrderListFragment extends BaseHttpListFragment<Order, ListView, Ord
     public static final int RANGE_RECOMMEND = HttpRequest.ITEM_LIST_RANGE_RECOMMEND;
 
     private long admin_id = -1;
+    private int order_state = -1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         argument = getArguments();
         admin_id = argument.getLong(ADMIN_ID, -1);
-
+        order_state = argument.getInt(ORDER_STATE, order_state);
 
         initCache(this);
 
@@ -97,7 +111,7 @@ public class OrderListFragment extends BaseHttpListFragment<Order, ListView, Ord
 
     @Override
     public void setList(final List<Order> list) {
-        //TODO * 修改为order
+
         setList(new AdapterCallBack<OrderAdapter>() {
 
             @Override
@@ -138,7 +152,13 @@ public class OrderListFragment extends BaseHttpListFragment<Order, ListView, Ord
 
             @Override
             public void run() {
-                HttpRequest.getInfo(admin_id, "queryMoreOrders.do", -page, OrderListFragment.this);
+                List<String> infoList = new ArrayList<>();
+                infoList.add(StringUtil.get(order_state));
+                //获取订单列表中存在admin_sure的订单(order_state:-1)
+                //通过order_state获取对应order订单信息(order_state!=-1)
+                HttpRequest.getInfo(admin_id, infoList, "queryMoreOrders.do", -page, OrderListFragment.this);
+
+
             }
         }, 1000);
     }
@@ -165,7 +185,7 @@ public class OrderListFragment extends BaseHttpListFragment<Order, ListView, Ord
     @Override
     public int getCacheCount() {
         //TODO 需要设置为获取数据库中仓库物品总量
-        return 10;
+        return 100;
     }
 
     //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -196,10 +216,9 @@ public class OrderListFragment extends BaseHttpListFragment<Order, ListView, Ord
         }
     }
 
-
     //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-    //TODO * 修改为Order
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -214,6 +233,9 @@ public class OrderListFragment extends BaseHttpListFragment<Order, ListView, Ord
                 setList(ordersList);
                 //TODO 将修改后的数据传到数据库中
 
+                break;
+            default:
+                srlBaseHttpList.autoRefresh();
                 break;
         }
 

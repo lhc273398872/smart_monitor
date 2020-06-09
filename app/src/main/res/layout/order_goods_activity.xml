@@ -11,6 +11,15 @@
             android:layout_centerHorizontal="true"
             android:text="订单详细信息" />
 
+        <LinearLayout
+            android:id="@+id/llOrderTabTopRightButtonContainer"
+            style="@style/ll_horizontal_wrap_wrap"
+            android:layout_height="@dimen/topbar_height"
+            android:layout_marginEnd="20dp"
+            android:layout_alignParentRight="true"
+            android:paddingEnd="10dp">
+        </LinearLayout>
+
     </RelativeLayout>
 
     <LinearLayout

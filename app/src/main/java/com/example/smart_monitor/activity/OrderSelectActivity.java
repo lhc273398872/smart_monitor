@@ -85,14 +85,15 @@ public class OrderSelectActivity extends BaseActivity
             finishWithError("用户不存在");
             return;
         }
-        order = new Order();
-        order.setAdmin_id(admin_id);
-        order.setOrder_state(3);
         house_id = intent.getLongExtra(INTENT_ID, house_id);
         if (house_id < 0){
             finishWithError("仓库不存在！");
             return;
         }
+        order = new Order();
+        order.setHouse_id(house_id);
+        order.setAdmin_id(admin_id);
+        order.setOrder_state(3);
 
         initView();
         initData();
@@ -391,12 +392,13 @@ public class OrderSelectActivity extends BaseActivity
 
                 //获取系统时间
                 Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String current_time = dateFormat.format(date);
 
                 android.util.Log.d(TAG, "onClick: current_time: " + current_time);
 
                 order.setOrder_start(current_time);
+                order.setAdmin_sure(0);
 
                 //发送货物列表和订单数据到数据库
                 android.util.Log.d(TAG, "onClick: goodsSelect: " + JSONArray.toJSONString(goodsList));

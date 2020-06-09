@@ -445,7 +445,7 @@ public class ItemActivity extends BaseActivity implements OnClickListener, OnBot
         switch (requestCode) {
             case ALTER_GOODS_TAG:
                 //获取标签返回值
-                goods.setGoods_tag(data.getIntExtra(BottomMenuWindow.RESULT_ITEM_ID, 0));
+                goods.setGoods_tag(data == null ? null : data.getIntExtra(BottomMenuWindow.RESULT_ITEM_ID, 0));
                 itemView.bindView(goods);
                 setGoods(goods);
                 break;

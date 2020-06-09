@@ -86,6 +86,8 @@ public class AdminUserActivity extends BaseActivity implements OnClickListener, 
     private EditText etDriverRemark;
     private TextView tvDriverTag;
     private TextView tvDriverRightButton;
+    private TextView tvOverOrder;
+    private TextView tvWrongOps;
 
     private ViewGroup llDriverBottomMenuContainer;
     private BottomMenuView bottomMenuView;
@@ -109,6 +111,9 @@ public class AdminUserActivity extends BaseActivity implements OnClickListener, 
         bottomMenuView = new BottomMenuView(context, REQUEST_TO_BOTTOM_MENU);
         llDriverBottomMenuContainer.addView(bottomMenuView.createView());
         //添加底部菜单>>>>>>>>>>>>>>>>>>>>>>>
+//
+//        tvOverOrder.setVisibility(View.GONE);
+//        tvWrongOps.setVisibility(View.GONE);
 
     }
 

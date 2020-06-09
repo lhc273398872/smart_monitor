@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/activity_page"
+    tools:ignore="MissingDefaultResource">
+
+    <RelativeLayout style="@style/topbar_bg" >
+
+        <ImageButton
+            style="@style/topbar_return_img"
+            android:id="@+id/ibtnDriverInfoCancel"/>
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="用户信息" />
+
+        <LinearLayout
+            android:id="@+id/llDriverTabTopRightButtonContainer"
+            style="@style/ll_horizontal_wrap_wrap"
+            android:layout_marginEnd="20dp"
+            android:layout_height="@dimen/topbar_height"
+            android:layout_alignParentRight="true"
+            android:paddingEnd="10dp">
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <ScrollView
+        style="@style/match_wrap">
+
+        <LinearLayout style="@style/ll_vertical_match_match" >
+
+
+
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/content_item_white" >
+
+                <TextView
+                    style="@style/content_item_lf_tv_black"
+                    android:text="司机名称" />
+
+                <TextView
+                    style="@style/content_item_rt_tv"
+                    android:id="@+id/tvDriverName"
+                    android:layout_weight="1"
+                    android:text="" />
+
+                <ImageView style="@style/content_item_rt_img" />
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/content_item_white" >
+
+                <TextView
+                    style="@style/content_item_lf_tv_black"
+                    android:text="司机手机号" />
+
+                <TextView
+                    style="@style/content_item_rt_tv"
+                    android:id="@+id/tvDriverTel"
+                    android:layout_weight="1"
+                    android:text="" />
+
+                <ImageView style="@style/content_item_rt_img" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        style="@style/divider_horizontal_1px"
+        android:layout_marginBottom="@dimen/padding_huge" />
+
+    <LinearLayout
+        android:id="@+id/llUserBottomMenuContainer"
+        style="@style/ll_vertical_match_wrap" >
+    </LinearLayout>
+
+</LinearLayout>

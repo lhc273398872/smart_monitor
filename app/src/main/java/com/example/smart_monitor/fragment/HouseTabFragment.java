@@ -144,7 +144,7 @@ public class HouseTabFragment extends BaseFragment
                 tab.view.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        toActivity(HouseActivity.createIntent(context, admin_id, houseList.get(position).getHouse_id()));
+                        toActivity(HouseActivity.createIntent(context, admin_id, houseList.get(position).getHouse_id()), REFRESH_HOUSE_LIST);
                         return true;
                     }
                 });
@@ -178,6 +178,7 @@ public class HouseTabFragment extends BaseFragment
     public void onHttpResponse(int requestCode, String resultJson, Exception e) {
         if (e != null){
             e.printStackTrace();
+            showShortToast(R.string.get_failed);
             return;
         }
 
@@ -186,7 +187,6 @@ public class HouseTabFragment extends BaseFragment
         if (houseList == null || houseList.size() == 0){
             showShortToast("请新建仓库");
         } else {
-            showShortToast(houseList.toString());
             setHouseList();
         }
     }
@@ -201,13 +201,13 @@ public class HouseTabFragment extends BaseFragment
         if (resultCode != RESULT_OK){
             return;
         }
-        ItemListFragment itemListFragment = (ItemListFragment) fragmentTab.get(viewPager2.getCurrentItem());
 
         switch (requestCode) {
             case REFRESH_HOUSE_LIST:
                 getHouseList();
                 break;
             case REFRESH_ITEM_LIST:
+                ItemListFragment itemListFragment = (ItemListFragment) fragmentTab.get(viewPager2.getCurrentItem());
                 itemListFragment.refreshList();
                 break;
             case REQUEST_TO_TOP_MENU:
@@ -224,24 +224,19 @@ public class HouseTabFragment extends BaseFragment
                         break;
                     case 1:
                         //新建货物
+                        if (fragmentTab.size() == 0 || houseList == null){
+                            showShortToast("请新建仓库，或检查自身网络");
+                            return;
+                        }
+
                         itemListFragment = (ItemListFragment) fragmentTab.get(viewPager2.getCurrentItem());
 
-                        if (itemListFragment == null){
-                            showShortToast("请新建仓库，或检查自身网络");
-                            return;
-                        }
-
-                        if (houseList == null){
-                            showShortToast("请新建仓库，或检查自身网络");
-                            return;
-                        }
-
 //                        long house_id = houseList.get(viewPager2.getCurrentItem()).getHouse_id();
-                        showShortToast("viewPager2.getCurrentItem():" + viewPager2.getCurrentItem());
                         itemListFragment.runItemActivity(houseList.get(viewPager2.getCurrentItem()).getHouse_id());
                         break;
                     case 2:
-                        if (houseList == null){
+                        //新建货物
+                        if (fragmentTab.size() == 0 || houseList == null){
                             showShortToast("请新建仓库，或检查自身网络");
                             return;
                         }
@@ -250,7 +245,6 @@ public class HouseTabFragment extends BaseFragment
                         break;
                 }
 
-                showShortToast(data.toString());
                 break;
         }
     }

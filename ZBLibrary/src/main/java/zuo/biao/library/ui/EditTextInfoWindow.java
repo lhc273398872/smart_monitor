@@ -147,6 +147,7 @@ public class EditTextInfoWindow extends BaseBottomWindow implements OnClickListe
 
 	public static final int TYPE_NICK = 200 + ContactUtil.TYPE_NICK;
 	public static final int TYPE_NAME = 200 + ContactUtil.TYPE_NAME;
+	public static final int NAME = 300 + ContactUtil.TYPE_NAME;
 
 	public static final int TYPE_PHONE = 200 + ContactUtil.TYPE_PHONE;
 	public static final int TYPE_WEBSITE = 200 + ContactUtil.TYPE_WEBSITE;
@@ -184,36 +185,39 @@ public class EditTextInfoWindow extends BaseBottomWindow implements OnClickListe
 		etEditTextInfo.setSingleLine(intentType != TYPE_NOTE);
 
 		switch (intentType) {
-		case TYPE_NICK:
-			maxEms = 20;
-			break;
-		case TYPE_PHONE:
-			etEditTextInfo.setInputType(InputType.TYPE_CLASS_PHONE);
-			maxEms = 11;
-			break;
-		case TYPE_EMAIL:
-			etEditTextInfo.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-			maxEms = 60;
-			break;
-		case TYPE_WEBSITE:
-			etEditTextInfo.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT);
-			maxEms = 200;
-			break;
-		case TYPE_MAILADDRESS:
-			maxEms = 60;
-			break;
-		case TYPE_PROFESSION:
-			tvEditTextInfoRemind.setText("所属行业");
-			maxEms = 15;
-		case TYPE_NOTE:
-			maxEms = 100;
-			break;
-		case TYPE_NUMBER:
-			maxEms = 10;
-			etEditTextInfo.setKeyListener(new DigitsKeyListener(false,false));
-			break;
-		default:
-			break;
+			case NAME:
+				maxEms = 10;
+				break;
+			case TYPE_NICK:
+				maxEms = 20;
+				break;
+			case TYPE_PHONE:
+				etEditTextInfo.setInputType(InputType.TYPE_CLASS_PHONE);
+				maxEms = 11;
+				break;
+			case TYPE_EMAIL:
+				etEditTextInfo.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+				maxEms = 60;
+				break;
+			case TYPE_WEBSITE:
+				etEditTextInfo.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT);
+				maxEms = 200;
+				break;
+			case TYPE_MAILADDRESS:
+				maxEms = 60;
+				break;
+			case TYPE_PROFESSION:
+				tvEditTextInfoRemind.setText("所属行业");
+				maxEms = 15;
+			case TYPE_NOTE:
+				maxEms = 100;
+				break;
+			case TYPE_NUMBER:
+				maxEms = 10;
+				etEditTextInfo.setKeyListener(new DigitsKeyListener(false,false));
+				break;
+			default:
+				break;
 		}
 		etEditTextInfo.setMaxEms(maxEms);
 		tvEditTextInfoRemind.setText("限" + maxEms/2 + "个字（或" + maxEms + "个字符）");

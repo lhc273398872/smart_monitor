@@ -15,6 +15,7 @@
         <LinearLayout
             android:id="@id/llBaseTabTopRightButtonContainer"
             style="@style/ll_horizontal_wrap_wrap"
+            android:layout_marginEnd="20dp"
             android:layout_height="@dimen/topbar_height"
             android:layout_alignParentRight="true"
             android:paddingEnd="10dp">
