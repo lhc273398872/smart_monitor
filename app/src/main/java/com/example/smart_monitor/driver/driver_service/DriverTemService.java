@@ -219,58 +219,58 @@ public class DriverTemService extends Service implements OnHttpResponseListener{
 
             runThread = true;
             int number = 0;
-//            while(runThread){
-//                try {
-//                    android.util.Log.d(TAG, "onClick: 连接socket端口");
-//                    android.util.Log.d(TAG, "onClick: 获取in数据");
-//
-//                    Thread.sleep(10000);
-//                    String getRead = "$GT: 1. 1. 1. 1,22.771629,N,113.881632,E,V,272,273,00,A*0F";
-//
-//                    mBuilder.setContentTitle("smart_monitor")
-//                            //设置内容
-//                            .setContentText(getRead)
-//                            //设置大图标
-//                            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-//                            //设置小图标
-//                            .setSmallIcon(R.mipmap.ic_launcher_round)
-//                            //设置通知时间
-//                            .setWhen(System.currentTimeMillis())
-//                            //首次进入时显示效果
-//                            .setTicker("smart_monitor")
-//                            //设置通知方式，声音，震动，呼吸灯等效果，这里通知方式为声音
-//                            .setDefaults(Notification.DEFAULT_SOUND);
-//                    //发送通知请求
-//                    notificationManager.notify(test++, mBuilder.build());
-//                    getRead = getRead.replace(" ", "");
-//
-//                    number%=6;
-//                    String[] numberList = new String[]{"1", "2", "3", "4", "5", "6"};
-//                    Long rfid_id = Long.parseLong(getRead.substring(4,10).replace(".", "") + numberList[number++]);
-//
-//                    String tem_all = getRead.substring(39,46);
-//                    int first_tem = Integer.parseInt(tem_all.substring(0, 2));
-//                    int second_tem = Integer.parseInt(tem_all.substring(4,6));
-//
-//                    android.util.Log.d(TAG, "onClick: 连接成功" + getRead);
-//                    android.util.Log.d(TAG, "onClick: 连接成功" + rfid_id);
-//                    android.util.Log.d(TAG, "onClick: 连接成功" + tem_all);
-//                    android.util.Log.d(TAG, "onClick: 连接成功" + first_tem);
-//                    android.util.Log.d(TAG, "onClick: 连接成功" + second_tem);
-////                        in.close();
-//
-//                    List<Integer> infoList = new ArrayList<>();
-//                    infoList.add((first_tem + second_tem)/2);
-//                    //TODO 上传温度信息，当报错时需提醒用户新建车辆
-//                    HttpRequest.getInfo(driver_id, rfid_id, infoList, "updateDriverCarTem.do", UPDATATEM, DriverTemService.this);
-//
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
+            while(runThread){
+                try {
+                    android.util.Log.d(TAG, "onClick: 连接socket端口");
+                    android.util.Log.d(TAG, "onClick: 获取in数据");
+
+                    Thread.sleep(10000);
+                    String getRead = "$GT: 1. 1. 1. 1,22.771629,N,113.881632,E,V,272,273,00,A*0F";
+
+                    mBuilder.setContentTitle("smart_monitor")
+                            //设置内容
+                            .setContentText(getRead)
+                            //设置大图标
+                            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                            //设置小图标
+                            .setSmallIcon(R.mipmap.ic_launcher_round)
+                            //设置通知时间
+                            .setWhen(System.currentTimeMillis())
+                            //首次进入时显示效果
+                            .setTicker("smart_monitor")
+                            //设置通知方式，声音，震动，呼吸灯等效果，这里通知方式为声音
+                            .setDefaults(Notification.DEFAULT_SOUND);
+                    //发送通知请求
+                    notificationManager.notify(test++, mBuilder.build());
+                    getRead = getRead.replace(" ", "");
+
+                    number%=6;
+                    String[] numberList = new String[]{"1", "2", "3", "4", "5", "6"};
+                    Long rfid_id = Long.parseLong(getRead.substring(4,10).replace(".", "") + numberList[number++]);
+
+                    String tem_all = getRead.substring(39,46);
+                    int first_tem = Integer.parseInt(tem_all.substring(0, 2));
+                    int second_tem = Integer.parseInt(tem_all.substring(4,6));
+
+                    android.util.Log.d(TAG, "onClick: 连接成功" + getRead);
+                    android.util.Log.d(TAG, "onClick: 连接成功" + rfid_id);
+                    android.util.Log.d(TAG, "onClick: 连接成功" + tem_all);
+                    android.util.Log.d(TAG, "onClick: 连接成功" + first_tem);
+                    android.util.Log.d(TAG, "onClick: 连接成功" + second_tem);
+//                        in.close();
+
+                    List<Integer> infoList = new ArrayList<>();
+                    infoList.add((first_tem + second_tem)/2);
+                    //TODO 上传温度信息，当报错时需提醒用户新建车辆
+                    HttpRequest.getInfo(driver_id, rfid_id, infoList, "updateDriverCarTem.do", UPDATATEM, DriverTemService.this);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
 
-            //可获取socket数据
+            /*//可获取socket数据
             while(runThread){
                 Socket socket = new Socket();
                 SocketAddress socketAddress = new InetSocketAddress("study.twdk.net", 50001);
@@ -329,7 +329,7 @@ public class DriverTemService extends Service implements OnHttpResponseListener{
                         e.printStackTrace();
                     }
                 }
-            }
+            }*/
 
 //            while (runThread){
 //                try {

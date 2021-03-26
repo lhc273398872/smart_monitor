@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -84,7 +85,7 @@ public class HouseTabFragment extends BaseFragment
     public void initView() {//必须调用
         tabLayout = findView(R.id.tlHouseTab);
         viewPager2 = findView(R.id.vpHouseView);
-        llHouseButton = findView(R.id.llHouseButton);
+//        llHouseButton = findView(R.id.llHouseButton);
     }
 
 

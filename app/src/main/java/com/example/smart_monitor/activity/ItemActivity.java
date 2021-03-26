@@ -143,7 +143,7 @@ public class ItemActivity extends BaseActivity implements OnClickListener, OnBot
     @Override
     public void initView() {//必须调用
 
-        //添加用户名片，这些方式都可<<<<<<<<<<<<<<<<<<<<<<
+        //添加用户名片，这些方式都可
         //		//方式一
         //		bvlUser = findView(R.id.bvlUser);
         //		bvlUser.createView(new UserView(context, getResources()));

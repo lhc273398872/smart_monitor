@@ -82,7 +82,7 @@
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.DriverActivity" />
         <activity android:name=".activity.HouseActivity" />
-        <activity android:name=".activity.GpsActivity" />
+        <activity android:name=".activity.GpsActivity"/>
         <activity android:name=".activity.OrderGoodsActivity" />
         <activity android:name=".activity.WelcomeActivity">
             <intent-filter>

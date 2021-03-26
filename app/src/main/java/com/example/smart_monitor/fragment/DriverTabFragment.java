@@ -84,6 +84,7 @@ public class DriverTabFragment extends BaseTabFragment
         super.initView();
         Log.d("test","lhcAddTop");
 
+        //添加 添加按钮
         addTopRightButton(newTopRightImageView(context, R.drawable.add_small)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

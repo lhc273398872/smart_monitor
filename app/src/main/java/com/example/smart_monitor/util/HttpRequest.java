@@ -28,7 +28,7 @@ public class HttpRequest {
     //http://192.168.137.1    宽带热点ip
     //192.168.43.210       手机热点ip
     //192.168.137.122       舍友宽带ip
-    public static final String URL_BASE = "http://192.168.43.210:8001/smart_monitor";
+    public static final String URL_BASE = "http://192.168.0.7:8001/smart_monitor";
     public static final String PAGE_NUM = "pageNum";
     public static final String JSONSTR = "jsonStr";
     public static final String ListJSONSTR = "listJsonStr";
